@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ExploringRecoil from './darkLightMode/App';
 import AppContainer from './AppContainer';
 import ThemeMode from './darkLightMode/App';
+import TodoListApp from './todolist';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: 'themeMode',
         element: <ThemeMode />,
+      },
+      {
+        path: 'todoapp',
+        element: <TodoListApp />,
       },
     ],
   },

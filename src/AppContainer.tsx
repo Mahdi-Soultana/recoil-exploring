@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
 import React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
+import Nav from './Navigation';
 
 function AppContainer() {
   return (
@@ -13,41 +14,7 @@ function AppContainer() {
     </div>
   );
 }
-const StyledNavLink = ({
-  text = '',
-  link = '/',
-}: {
-  text: string;
-  link: string;
-}) => {
-  const background = useRecoilValue(backgroundAtom);
-  return (
-    <NavLink
-      to={link}
-      className={({ isActive, isPending }) => {
-        return ` ${
-          isActive
-            ? 'text-green-500'
-            : background
-            ? 'text-white'
-            : 'text-gray-900 '
-        }`;
-      }}
-    >
-      {text}
-    </NavLink>
-  );
-};
-function Nav() {
-  return (
-    <ul
-      className={`absolute top-4 left-8 text-sm capitalize flex items-center space-x-4  z-[100]`}
-    >
-      <StyledNavLink link="/" text="home" />
-      <StyledNavLink link="/themeMode" text="themeMode" />
-    </ul>
-  );
-}
+
 function ContentContainer() {
   const background = useRecoilValue(backgroundAtom);
   return (
@@ -73,7 +40,7 @@ function Background() {
 
 export default AppContainer;
 
-const backgroundAtom = atom({
+export const backgroundAtom = atom({
   key: 'backgroundAtom',
   default: false,
 });
