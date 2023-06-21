@@ -16,9 +16,9 @@ const TodosAtom = atom<Todo[]>({
   ],
   effects: [
     (pram) => {
-      const localdata = localStorage.getItem(pram.node.key);
-      if (localdata !== null) {
-        const initTodos: Todo[] = JSON.parse(localdata);
+      const localdate = localStorage.getItem(pram.node.key);
+      if (localdate !== null) {
+        const initTodos: Todo[] = JSON.parse(localdate);
         console.log('setSef', initTodos);
         pram.setSelf(initTodos);
       }
