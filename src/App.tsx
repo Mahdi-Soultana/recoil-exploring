@@ -4,6 +4,7 @@ import ExploringRecoil from './darkLightMode/App';
 import AppContainer from './AppContainer';
 import ThemeMode from './darkLightMode/App';
 import TodoListApp from './todolist';
+import Asyn1 from './async-1/Asyn1';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: 'todoapp',
         element: <TodoListApp />,
+      },
+      {
+        path: 'async1',
+        element: <Asyn1 />,
       },
     ],
   },

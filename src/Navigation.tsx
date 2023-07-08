@@ -8,6 +8,7 @@ function Nav() {
       <StyledNavLink link="/" text="home" />
       <StyledNavLink link="/themeMode" text="themeMode" />
       <StyledNavLink link="/todoapp" text="TodoApp" />
+      <StyledNavLink link="/async1" text="async1" />
     </ul>
   );
 }
