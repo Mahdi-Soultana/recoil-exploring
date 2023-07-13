@@ -1,20 +1,13 @@
-import React, { Suspense } from 'react';
-import SelectUser from './SelectUser';
-import UserInfo from './userInfo/UserInfo';
-import { useRecoilValue } from 'recoil';
-import { userId } from './atom';
+import DataTreeExample from './dataTreeExample';
+import UserAsync from './userInfoExample/UserAsync';
 
 function Asyn1() {
-  const id = useRecoilValue(userId);
-
   return (
     <div className="max-w-xl w-full flex-shrink-0 m-auto h-screen  ">
-      <div className="flex items-center justify-end ">
-        <SelectUser />
-      </div>
-      <Suspense fallback={<p>Loading...</p>}>
-        {id && <UserInfo id={id} />}
-      </Suspense>
+      <UserAsync />
+      {/* <hr className="my-4 h-1" /> */}
+      <div className="h-[1px] w-full bg-black my-4"></div>
+      <DataTreeExample />
     </div>
   );
 }

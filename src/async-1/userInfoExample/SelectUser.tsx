@@ -1,6 +1,5 @@
-import React from 'react';
-import { userId } from './atom';
 import { useSetRecoilState } from 'recoil';
+import { userId } from './atom';
 
 function SelectUser() {
   const setUserId = useSetRecoilState(userId);
