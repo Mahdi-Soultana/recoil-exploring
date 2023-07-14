@@ -1,11 +1,13 @@
 import { useRecoilValue } from 'recoil';
 import { v4 } from 'uuid';
 import Item from './Item';
+import Toolbar from './Toolbar';
 import { Tree, selectedAtom } from './atoms';
 import './style.css';
 function DataTreeExample() {
   return (
     <>
+      <Toolbar />
       <ul>
         <Item id={v4()} parentId="root" />
         <Item id={v4()} parentId="root" />

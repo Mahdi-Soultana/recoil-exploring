@@ -1,4 +1,4 @@
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 export type item = { id: string; children: item[] | null };
 export type Child = {
   id: string;
@@ -20,7 +20,7 @@ export const childFamily = atomFamily<Child | null, string>({
   default: {
     type: 'folder',
     name: 'loading...',
-    id: 'initial_Id',
+    id: 'root',
     children: null,
   },
   effects: [
@@ -32,7 +32,35 @@ export const childFamily = atomFamily<Child | null, string>({
     },
   ],
 });
+//
+export const childOpen = atomFamily({
+  key: 'childOpenAtomFamily',
+  default: false,
+});
 
+export const selectedFolder = selector<{
+  folder: Child;
+  isOpen: boolean;
+} | void>({
+  key: 'selector-child',
+  get({ get }) {
+    const selected = get(selectedAtom);
+    if (!selected?.folder) return;
+    const folderId = selected.folder;
+    const isOpen = get(childOpen(folderId));
+    const folder = get(childFamily(folderId));
+    if (!folder) return;
+    return { folder, isOpen };
+  },
+  set({ get, set }) {
+    const selected = get(selectedAtom);
+    if (!selected?.folder) return;
+    const folderId = selected.folder;
+    const isOpen = get(childOpen(folderId));
+
+    set(childOpen(folderId), true);
+  },
+});
 export const treeAtoms = atom<Tree>({
   key: 'treeAtoms',
   default: [],

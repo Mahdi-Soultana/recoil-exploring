@@ -1,24 +1,24 @@
-import React from 'react';
+import { useRecoilState } from 'recoil';
+import { childOpen } from './atoms';
 function FileFolder({
   name,
-  setOpen,
-  open,
+
   type,
   id,
   onOpen,
 }: {
   name: string;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  open: boolean;
+
   type: 'file' | 'folder';
   id: string;
-  onOpen: (pram: { id: string; type: 'file' | 'folder' }) => void;
+  onOpen: () => void;
 }) {
+  const [open, setOpen] = useRecoilState(childOpen(id));
   return (
     <div
       className="flex items-center space-x-2 text-xs font-Lato cursor-pointer group"
       onClick={() => {
-        onOpen({ id, type });
+        onOpen();
         if (type == 'folder') {
           setOpen((s) => !s);
         }

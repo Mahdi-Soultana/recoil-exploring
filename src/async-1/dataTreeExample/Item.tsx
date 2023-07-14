@@ -1,78 +1,31 @@
-import React, { useState } from 'react';
-import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
-import { v4 } from 'uuid';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 import FileFolder from './FileFolder';
-import { Child, childFamily, selectedAtom } from './atoms';
+import { childFamily, childOpen } from './atoms';
+import { useCreateChild } from './hooks';
+import { createDummyFiles } from './utils';
 function Item({ id, parentId }: { id: string; parentId: string }) {
-  const [open, setOpen] = useState(false);
-  const [item, setItem] = useRecoilState(childFamily(id));
-  // console.log({ parentId });
-  if (!item) return null;
+  const open = useRecoilValue(childOpen(id));
+  const item = useRecoilValue(childFamily(id));
+  const createChild = useCreateChild({ id, parentId });
 
-  const { type, name } = item;
-  const setSelect = useSetRecoilState(selectedAtom);
-  const selecting = (type: 'folder' | 'file') => {};
-  const callback = useRecoilCallback(
-    ({ set }) =>
-      (item: Child, type: 'file' | 'folder') => {
-        if (name == 'loading...') {
-          if (item.type == 'folder') {
-            setSelect({ folder: item.id, file: null });
-          } else {
-            setSelect({ folder: parentId, file: item.id });
-          }
-        } else {
-          if (type == 'folder') {
-            setSelect({ folder: item.id, file: null });
-          } else {
-            setSelect({ folder: parentId, file: item.id });
-          }
-        }
+  if (!item || !createChild) return null;
 
-        if (children !== null) return;
-        set(childFamily(id), item);
-      },
-    [name],
-  );
+  const { type, name, children } = item;
 
-  const children = item.children;
-  const rn = Math.random() - 0.5 < 0 ? true : false;
   return (
     <li
       id={id}
-      draggable
-      // onDrag={(e) => {
-      //   console.log(e.target);
-      // }}
-      onDragEnter={(e) => {
-        console.log(e.currentTarget);
-      }}
       style={{
         height: type == 'folder' ? (open ? '100%' : '1.45rem') : '100%',
+        overflow: 'hidden',
       }}
-      className=" overflow-hidden   "
     >
       <FileFolder
-        onOpen={async ({ id, type }) => {
-          callback(
-            {
-              id,
-              name: rn ? 'src' : 'index.js',
-              type: rn ? 'folder' : 'file',
-              // we pass a children of an array after a request or a click in this case👍👍👍
-              children: rn
-                ? [
-                    { id: v4(), children: null },
-                    { id: v4(), children: null },
-                  ]
-                : [],
-            },
-            type,
-          );
+        onOpen={() => {
+          createChild(createDummyFiles(id), type);
         }}
         name={name}
-        setOpen={setOpen}
-        open={open}
         type={type}
         id={id}
       />
