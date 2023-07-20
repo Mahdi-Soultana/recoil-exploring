@@ -1,8 +1,7 @@
-import { useRecoilValue } from 'recoil';
 import { v4 } from 'uuid';
 import Item from './Item';
 import Toolbar from './Toolbar';
-import { Tree, selectedAtom } from './atoms';
+import { Tree } from './atoms';
 import './style.css';
 function DataTreeExample() {
   return (
@@ -13,15 +12,15 @@ function DataTreeExample() {
         <Item id={v4()} parentId="root" />
         <Item id={v4()} parentId="root" />
       </ul>
-      <Selected />
+      {/* <Selected /> */}
     </>
   );
 }
-function Selected() {
-  const selected = useRecoilValue(selectedAtom);
-  console.log(selected);
-  return <></>;
-}
+// function Selected() {
+//   const selected = useRecoilValue(selectedAtom);
+//   // console.log(selected);
+//   return <></>;
+// }
 const GenerateTree = ({ tree }: { tree: Tree }) => {
   return <></>;
 };

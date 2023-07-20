@@ -1,9 +1,8 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import FileFolder from './FileFolder';
 import { childFamily, childOpen } from './atoms';
+import FileFolder from './fileFolder/FileFolder';
 import { useCreateChild } from './hooks';
-import { createDummyFiles } from './utils';
 function Item({ id, parentId }: { id: string; parentId: string }) {
   const open = useRecoilValue(childOpen(id));
   const item = useRecoilValue(childFamily(id));
@@ -11,25 +10,29 @@ function Item({ id, parentId }: { id: string; parentId: string }) {
 
   if (!item || !createChild) return null;
 
-  const { type, name, children } = item;
+  const { type, children, name } = item;
 
   return (
     <li
       id={id}
       style={{
-        height: type == 'folder' ? (open ? '100%' : '1.45rem') : '100%',
+        height:
+          name == `rename ${type}`
+            ? '100%'
+            : type == 'folder'
+            ? open
+              ? '100%'
+              : '1.2rem'
+            : '100%',
         overflow: 'hidden',
+        position: 'relative',
       }}
     >
-      <FileFolder
-        onOpen={() => {
-          createChild(createDummyFiles(id), type);
-        }}
-        name={name}
-        type={type}
-        id={id}
-      />
-      <ul>
+      {/* {type == 'folder' && (
+        <span className="w-[1px] h-full absolute left-0 top-0 bg-gray-500" />
+      )} */}
+      <FileFolder parentId={parentId} id={id} />
+      <ul className="pb-[3px]">
         {children
           ? children.map((i, ind) => <Item id={i.id} key={ind} parentId={id} />)
           : null}
