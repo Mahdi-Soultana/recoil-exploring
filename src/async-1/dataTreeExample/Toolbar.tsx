@@ -3,7 +3,12 @@ import { BsFileEarmarkPlus } from 'react-icons/bs';
 import { HiOutlineFolderPlus } from 'react-icons/hi2';
 import { MdDriveFileRenameOutline } from 'react-icons/md';
 import { TiDocumentDelete } from 'react-icons/ti';
-import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
+import {
+  useRecoilCallback,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from 'recoil';
 import { v4 } from 'uuid';
 import { Child, childFamily, selectedAtom, selectedFolder } from './atoms';
 
@@ -77,12 +82,7 @@ function Toolbar() {
       >
         <MdDriveFileRenameOutline />
       </div>
-      <div
-        title="delete"
-        className=" cursor-pointer   flex items-center justify-center hover:opacity-50 p-2"
-      >
-        <TiDocumentDelete />
-      </div>
+      <DeleteIcon />
       <div
         title=" add file"
         className=" cursor-pointer    flex items-center justify-center hover:opacity-50 p-2"
@@ -100,5 +100,29 @@ function Toolbar() {
     </div>
   );
 }
+const DeleteIcon = () => {
+  const [selectedState, setSelected] = useRecoilState(selectedAtom);
+  let selected: string = '';
+  if (selectedState?.file) {
+    selected = selectedState?.file;
+  } else {
+    if (selectedState?.folder) {
+      selected = selectedState?.folder;
+    }
+  }
+
+  const value = useRecoilValue(childFamily(selected));
+  if (!value) return null;
+  const parentValue = useRecoilValue(childFamily(value?.parent));
+  console.log({ parentValue });
+  return (
+    <div
+      title="delete"
+      className=" cursor-pointer   flex items-center justify-center hover:opacity-50 p-2"
+    >
+      <TiDocumentDelete />
+    </div>
+  );
+};
 
 export default Toolbar;
