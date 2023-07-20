@@ -17,6 +17,7 @@ function Toolbar() {
         set(childFamily(item.id), item);
 
         set(childFamily(id), {
+          parent: item.id,
           name: `rename ${type}`,
           id,
           children: [],
@@ -41,11 +42,13 @@ function Toolbar() {
     if (selectedF.name == 'loading...') return;
 
     const id = v4();
+
     const newFileFolder = produce(selectedF, (draft) => {
       let children = draft.children;
       if (children == null) {
         draft.children = [
           {
+            parent: selectedF.id,
             id,
             children: null,
           },
@@ -54,6 +57,7 @@ function Toolbar() {
         draft.children = [
           ...children,
           {
+            parent: selectedF.id,
             id,
             children: null,
           },

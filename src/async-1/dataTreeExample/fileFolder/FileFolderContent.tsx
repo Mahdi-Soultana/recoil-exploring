@@ -24,7 +24,7 @@ function FileFolderContent({ id, parentId }: { id: string; parentId: string }) {
           setOpen((s) => !s);
         }
         //   it's like making a request and getting the data and display it :)
-        createChild(createDummyFiles(id), type);
+        createChild(createDummyFiles(id, parentId), type);
       }}
     >
       <span

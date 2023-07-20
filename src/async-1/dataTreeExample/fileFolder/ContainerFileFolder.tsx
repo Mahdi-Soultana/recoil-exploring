@@ -14,7 +14,6 @@ const ContainerFileFolder = ({
   return (
     <div
       onClick={() => {
-        console.log({ id, selected });
         if (item.type === 'file') {
           setSelected((prevSelected) => ({
             file: id,

@@ -1,6 +1,7 @@
 import { atom, atomFamily, selector } from 'recoil';
-export type item = { id: string; children: item[] | null };
+export type item = { parent: string; id: string; children: item[] | null };
 export type Child = {
+  parent: string;
   id: string;
   name: string;
   type: 'folder' | 'file';
@@ -18,6 +19,7 @@ export const selectedAtom = atom<{
 export const childFamily = atomFamily<Child | null, string>({
   key: 'childAtom',
   default: {
+    parent: '',
     type: 'folder',
     name: 'loading...',
     id: 'root',

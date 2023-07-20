@@ -9,7 +9,7 @@ function Item({ id, parentId }: { id: string; parentId: string }) {
   const createChild = useCreateChild({ id, parentId });
 
   if (!item || !createChild) return null;
-
+  console.log(item);
   const { type, children, name } = item;
 
   return (
