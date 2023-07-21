@@ -32,11 +32,17 @@ function Item({ id, parentId }: { id: string; parentId: string }) {
         <span className="w-[1px] h-full absolute left-0 top-0 bg-gray-500" />
       )} */}
       <FileFolder parentId={parentId} id={id} />
-      <ul className="pb-[3px]">
-        {children
-          ? children.map((i, ind) => <Item id={i.id} key={ind} parentId={id} />)
-          : null}
-      </ul>
+      {type == 'folder' ? (
+        <ul className="pb-[3px]">
+          {children
+            ? children.map((i, ind) => (
+                <Item id={i.id} key={ind} parentId={id} />
+              ))
+            : null}
+        </ul>
+      ) : children ? (
+        children.map((i, ind) => <Item id={i.id} key={ind} parentId={id} />)
+      ) : null}
     </li>
   );
 }
