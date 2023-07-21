@@ -3,7 +3,7 @@ import { AiFillFolderOpen } from 'react-icons/ai';
 import { BsFileEarmarkCode } from 'react-icons/bs';
 import { useRecoilCallback, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { Child, childFamily, selectedAtom } from '../atoms';
+import { Child, allowedCreate, childFamily, selectedAtom } from '../atoms';
 import { ValidationSchemaInput } from '../type';
 import { validationSchemaDefault } from '../utils';
 
@@ -25,18 +25,7 @@ function CreateInput({
   };
   const setSelected = useSetRecoilState(selectedAtom);
   const item = useRecoilValue(childFamily(id));
-
-  // useEffect(() => {
-  //   if (!item) return;
-  //   if (item.type === 'folder') {
-  //     setSelected({ file: null, folder: id });
-  //   } else {
-  //     setSelected((prevSelected) => ({
-  //       file: id,
-  //       folder: prevSelected?.folder,
-  //     }));
-  //   }
-  // }, []);
+  const setAllowedCreate = useSetRecoilState(allowedCreate);
 
   const callback = useRecoilCallback(
     ({ set }) =>
@@ -45,6 +34,7 @@ function CreateInput({
           ...item,
           name,
         });
+        setAllowedCreate(true);
       },
   );
   return (

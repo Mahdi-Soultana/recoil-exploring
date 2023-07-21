@@ -67,3 +67,8 @@ export const treeAtoms = atom<Tree>({
   key: 'treeAtoms',
   default: [],
 });
+
+export const allowedCreate = atom({
+  key: 'allowed-create-atom',
+  default: true,
+});

@@ -2,6 +2,7 @@ import DataTreeExample from './dataTreeExample';
 import UserAsync from './userInfoExample/UserAsync';
 
 function Asyn1() {
+  console.log({ hello: 'hiii' });
   return (
     <div className="max-w-xl w-full flex-shrink-0 m-auto min-h-screen pb-20  pt-10">
       <UserAsync />

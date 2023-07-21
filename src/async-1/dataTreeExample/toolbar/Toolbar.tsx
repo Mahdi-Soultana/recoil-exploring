@@ -10,32 +10,41 @@ import {
   useSetRecoilState,
 } from 'recoil';
 import { v4 } from 'uuid';
-import { Child, childFamily, selectedAtom, selectedFolder } from './atoms';
+import {
+  Child,
+  allowedCreate,
+  childFamily,
+  selectedAtom,
+  selectedFolder,
+} from '../atoms';
 
 function Toolbar() {
   const [state, setOpenFolder] = useRecoilState(selectedFolder);
   const setSelected = useSetRecoilState(selectedAtom);
+  const [allowedCreateBool, setAllowedCreate] = useRecoilState(allowedCreate);
   // setSelected folder or file when create to do tomorrow 7/14/2023
   const callback = useRecoilCallback(
     ({ set }) =>
       (item: Child, { id, type }: { id: string; type: 'file' | 'folder' }) => {
-        set(childFamily(item.id), item);
+        if (allowedCreateBool) {
+          set(childFamily(item.id), item);
 
-        set(childFamily(id), {
-          parent: item.id,
-          name: `rename ${type}`,
-          id,
-          children: [],
-          type,
-        });
-
-        if (item.type === 'folder') {
-          setSelected({ file: null, folder: id });
-        } else {
-          setSelected((prevSelected) => ({
-            file: id,
-            folder: prevSelected?.folder,
-          }));
+          set(childFamily(id), {
+            parent: item.id,
+            name: `rename ${type}`,
+            id,
+            children: [],
+            type,
+          });
+          setAllowedCreate(false);
+          if (item.type === 'folder') {
+            setSelected({ file: null, folder: id });
+          } else {
+            setSelected((prevSelected) => ({
+              file: id,
+              folder: prevSelected?.folder,
+            }));
+          }
         }
       },
   );
