@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
+import { Outlet } from 'react-router-dom';
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
-import React from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
 import Nav from './Navigation';
 
 function AppContainer() {

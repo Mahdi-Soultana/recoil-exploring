@@ -1,5 +1,10 @@
 import { atom, atomFamily, selector } from 'recoil';
-export type item = { parent: string; id: string; children: item[] | null };
+export type item = {
+  parent: string;
+  id: string;
+  children: item[] | null;
+  name: string;
+};
 export type Child = {
   parent: string;
   id: string;

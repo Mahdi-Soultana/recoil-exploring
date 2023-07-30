@@ -9,6 +9,7 @@ function Nav() {
       <StyledNavLink link="/themeMode" text="themeMode" />
       <StyledNavLink link="/todoapp" text="TodoApp" />
       <StyledNavLink link="/async1" text="async1" />
+      <StyledNavLink link="/datatree" text="dataTree" />
     </ul>
   );
 }

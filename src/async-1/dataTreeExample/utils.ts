@@ -11,8 +11,8 @@ export function createDummyFiles(id: string, parentId: string): Child {
     // we pass a children of an array after a request or a click in this case👍👍👍
     children: rn
       ? [
-          { parent: parentId, id: v4(), children: null },
-          { parent: parentId, id: v4(), children: null },
+          { parent: parentId, id: v4(), children: null, name: '' },
+          { parent: parentId, id: v4(), children: null, name: '' },
         ]
       : [],
   };

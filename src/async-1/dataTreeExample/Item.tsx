@@ -22,7 +22,7 @@ function Item({ id, parentId }: { id: string; parentId: string }) {
             : type == 'folder'
             ? open
               ? '100%'
-              : '1.2rem'
+              : '1.3rem'
             : '100%',
         overflow: 'hidden',
         position: 'relative',

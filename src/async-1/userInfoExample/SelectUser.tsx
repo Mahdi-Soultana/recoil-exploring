@@ -6,7 +6,7 @@ function SelectUser() {
   return (
     <select
       onChange={(e) => setUserId(e.target.value)}
-      className=" py-1 p-2 rounded shadow text-lg"
+      className=" py-1 p-2 rounded shadow text-lg dark:text-blue-700"
     >
       <option value="1">user 1</option>
       <option value="2">user 2</option>

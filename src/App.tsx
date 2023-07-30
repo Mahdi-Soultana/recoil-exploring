@@ -1,10 +1,10 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ExploringRecoil from './darkLightMode/App';
-import AppContainer from './AppContainer';
-import ThemeMode from './darkLightMode/App';
-import TodoListApp from './todolist';
+import { useRecoilValue } from 'recoil';
+import AppContainer, { backgroundAtom } from './AppContainer';
 import Asyn1 from './async-1/Asyn1';
+import ThemeMode from './darkLightMode/App';
+import DataTree from './dataTree/DataTree';
+import TodoListApp from './todolist';
 
 const router = createBrowserRouter([
   {
@@ -27,12 +27,21 @@ const router = createBrowserRouter([
         path: 'async1',
         element: <Asyn1 />,
       },
+      {
+        path: 'datatree',
+        element: <DataTree />,
+      },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  const isDark = useRecoilValue(backgroundAtom);
+  return (
+    <div className={isDark ? 'dark' : ''}>
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;

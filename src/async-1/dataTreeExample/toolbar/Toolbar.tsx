@@ -65,6 +65,7 @@ function Toolbar() {
             parent: selectedF.id,
             id,
             children: null,
+            name: `rename ${type}`,
           },
         ];
       } else {
@@ -74,6 +75,7 @@ function Toolbar() {
             parent: selectedF.id,
             id,
             children: null,
+            name: `rename ${type}`,
           },
         ];
       }

@@ -5,6 +5,7 @@ import {
   AiOutlineLoading3Quarters,
 } from 'react-icons/ai';
 import { BsFileEarmarkCode } from 'react-icons/bs';
+import { RiArrowDownSLine } from 'react-icons/ri';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { childFamily, childOpen } from '../atoms';
 import { useCreateChild } from '../hooks';
@@ -18,7 +19,7 @@ function FileFolderContent({ id, parentId }: { id: string; parentId: string }) {
   const { type, name } = item;
   return (
     <div
-      className="flex items-center space-x-2 text-xs font-Lato cursor-pointer group"
+      className="flex relative items-center space-x-1 text-xs font-Lato cursor-pointer group"
       onClick={() => {
         if (type == 'folder') {
           setOpen((s) => !s);
@@ -27,9 +28,11 @@ function FileFolderContent({ id, parentId }: { id: string; parentId: string }) {
         createChild(createDummyFiles(id, parentId), type);
       }}
     >
+      {type === 'folder' &&
+        (open ? <Arrow isOpen={false} /> : <Arrow isOpen={true} />)}
       <span
-        className={`w-5 h-5 flex justify-center items-center ${
-          open && type !== 'file' ? 'text-yellow-500' : 'text-gray-400'
+        className={`w-5 h-5 flex justify-center pl-1 items-center ${
+          open && type === 'folder' ? 'text-yellow-500' : 'text-gray-400'
         }`}
       >
         {name == 'loading...' ? (
@@ -54,8 +57,19 @@ function FileFolderContent({ id, parentId }: { id: string; parentId: string }) {
           <AiFillFolder size="20" />
         )}
       </span>
-      <p className="group-hover:text-yellow-700">{name}</p>
+      <p className="group-hover:text-yellow-700 dark:text-gray-200">{name}</p>
     </div>
+  );
+}
+function Arrow({ isOpen }: { isOpen: boolean }) {
+  return (
+    <motion.span
+      className="absolute  -left-1"
+      initial={{ rotate: -90 }}
+      animate={{ rotate: isOpen ? -90 : 0 }}
+    >
+      <RiArrowDownSLine />
+    </motion.span>
   );
 }
 

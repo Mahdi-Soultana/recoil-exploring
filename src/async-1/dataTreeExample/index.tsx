@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import Item from './Item';
 import { Tree } from './atoms';
 import './style.css';
@@ -8,9 +7,7 @@ function DataTreeExample() {
     <>
       <Toolbar />
       <ul>
-        <Item id={v4()} parentId="root" />
-        <Item id={v4()} parentId="root" />
-        <Item id={v4()} parentId="root" />
+        <Item id={'root'} parentId="root" />
       </ul>
       {/* <Selected /> */}
     </>

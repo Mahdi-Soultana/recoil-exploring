@@ -25,9 +25,9 @@ const ContainerFileFolder = ({
       }}
       className={`${
         selected?.file == id
-          ? 'bg-gray-200 border rounded '
+          ? 'bg-gray-200 dark:bg-gray-700 border rounded '
           : selected?.folder == id
-          ? ' border-l-blue-600/50 '
+          ? ' border-l-blue-600/50  dark:border-l-blue-500  '
           : ''
       } px-1 border-l-[2px]  cursor-pointer `}
     >
