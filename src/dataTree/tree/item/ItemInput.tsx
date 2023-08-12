@@ -1,5 +1,8 @@
 import { Field, Form, Formik } from 'formik';
+import { produce } from 'immer';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import * as Yup from 'yup';
+import { isCreateAtom, itemStateFamily } from '../../atoms';
 const validationSchemaDefault = Yup.object().shape({
   input: Yup.string()
     .min(2, 'Too Short!')
@@ -25,22 +28,35 @@ function ItemInput({
   className = ' p-2 py-1 text-xs  ',
   validationShema = validationSchemaDefault,
   type,
+  parent,
 }: {
-  id?: string;
+  id: string;
+  parent: string;
   initialValue?: string;
   validationShema?: ValidationSchemaInput;
-  type?: 'file' | 'folder';
+  type?: 'file' | 'folder' | 'default';
   className?: string;
 }) {
   const initialValueDefault = {
     input: initialValue,
   };
+  const setCreate = useSetRecoilState(isCreateAtom);
+
+  const [item, setItem] = useRecoilState(itemStateFamily(id));
 
   return (
     <Formik
       initialValues={initialValueDefault}
       validationSchema={validationShema}
-      onSubmit={(values) => {}}
+      onSubmit={(values) => {
+        const newItem = produce(item, (draft) => {
+          draft.name = values.input || '';
+          draft.parent = parent;
+          draft.type = type!;
+        });
+        setItem(newItem);
+        setCreate(false);
+      }}
     >
       {(e) => {
         const { errors, isValid, values, dirty, setErrors } = e;

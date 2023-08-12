@@ -1,26 +1,35 @@
 import { useRecoilValue } from 'recoil';
-import { isOpenAtom, itemStateFamily, treeItem } from '../../atoms';
+import { Item as ItemTs, isOpenAtom, itemStateFamily } from '../../atoms';
 import ItemLabel from './ItemLabel';
 
-function Item({ id, children }: treeItem) {
+function Item({
+  id,
+  type: typeProp,
+  parent,
+}: { id: string } & Partial<ItemTs>) {
   const item = useRecoilValue(itemStateFamily(id));
-
+  // console.log({ item });
   const isOpen = useRecoilValue(isOpenAtom(id));
 
-  const { name, type } = item;
+  const { name, type, children } = item;
   return (
     <li>
-      <ItemLabel name={name} type={type} id={id} />
+      <ItemLabel
+        name={name}
+        parent={parent || 'root'}
+        type={typeProp || 'folder'}
+        id={id}
+      />
       {children && children.length > 0 && (
         <ul
           className="pl-4 border-l border-gray-500/30"
           style={{
             height: isOpen ? 'auto' : 0,
-            overflow: isOpen ? 'auto' : 'hidden',
+            overflow: isOpen ? 'visible' : 'hidden',
           }}
         >
           {children.map((item, i) => (
-            <Item key={i} {...item} />
+            <Item key={i} id={item.id} type={item.type} parent={id} />
           ))}
         </ul>
       )}

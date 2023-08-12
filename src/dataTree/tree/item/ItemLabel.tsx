@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { isOpenAtom, selectedAtom } from '../../atoms';
+import { ItemType, isOpenAtom, selectedAtom } from '../../atoms';
 import Arrow from '../../components/Arrow';
 import ItemContent from './ItemContent';
 
@@ -7,10 +7,12 @@ function ItemLabel({
   type,
   name,
   id,
+  parent,
 }: {
-  type: string;
+  type: ItemType;
   id: string;
   name: string;
+  parent: string;
 }) {
   const [selected, setSelected] = useRecoilState(selectedAtom);
   const [isOpen, setIsOpen] = useRecoilState(isOpenAtom(id));
@@ -31,7 +33,7 @@ function ItemLabel({
       ) : (
         <span className="w-4 h-4 bg-gray-400" />
       )}
-      <ItemContent name={name} />
+      <ItemContent name={name} id={id} parent={parent} type={type} />
     </div>
   );
 }
