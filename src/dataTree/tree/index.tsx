@@ -3,7 +3,7 @@ import Item from './item';
 function Tree() {
   return (
     <ul>
-      <Item id="root" />
+      <Item id="first" />
     </ul>
   );
 }

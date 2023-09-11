@@ -29,11 +29,13 @@ function ItemContent({
       .required('name Required')
       .matches(/^[^.]*$/, 'please file a valid name folder'),
   });
-  console.log({ type });
+  // console.log({ type });
   return (
     <>
       {name !== 'default' ? (
-        <p className="text-sm  ">{name}</p>
+        <p className="text-sm  " onClick={() => console.log(item)}>
+          {name}
+        </p>
       ) : (
         <ItemInput
           parent={parent}

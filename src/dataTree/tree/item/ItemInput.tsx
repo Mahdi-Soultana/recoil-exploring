@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import { produce } from 'immer';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { v4 } from 'uuid';
 import * as Yup from 'yup';
 import { isCreateAtom, itemStateFamily } from '../../atoms';
 const validationSchemaDefault = Yup.object().shape({
@@ -53,6 +54,7 @@ function ItemInput({
           draft.name = values.input || '';
           draft.parent = parent;
           draft.type = type!;
+          draft.id = v4();
         });
         setItem(newItem);
         setCreate(false);
